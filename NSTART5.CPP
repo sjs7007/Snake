@@ -60,12 +60,11 @@ void main()
    break;
   }
   //don't use clrscr() in graphics mode
-/*  if(kbhit()) //is true if keyboard is hit. Used to take i/p when key is pressed otherwise continue with previous i/p.
+  if(kbhit()) //is true if keyboard is hit. Used to take i/p when key is pressed otherwise continue with previous i/p.
   {
    ch=getch(); //get the character which will indicate what to do with snake.
   // cleardevice();
-  }*/
-  ch=getch();
+  }
   for(int i=0;i<10000;i++) //loop to slow down the snake
   {
    for(int j=0;j<100;j++)
