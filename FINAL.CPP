@@ -3,11 +3,11 @@
 #include<graphics.h>
 #include<stdlib.h>
 
-#define lmax 8
+#define lmax 8 // The length of snake at which game will end.
 
-void assignPosition(int x[],int y[],int length,char ch,int radius)
+void assignPosition(int x[],int y[],int length,char ch,int radius) //Calculate and set position of each circle in arrays 
 {	
-	if(ch=='a')
+	if(ch=='a') // Go left
 	{
 		for(int i=length-1;i>=1;i--)
 		{
@@ -17,7 +17,7 @@ void assignPosition(int x[],int y[],int length,char ch,int radius)
 		x[0]=x[1]-2*radius;
 		y[0]=y[1];
 	}
-	else if(ch=='d')
+	else if(ch=='d') //Go right
 	{
 		for(int i=length-1;i>=1;i--)
 		{
@@ -25,8 +25,8 @@ void assignPosition(int x[],int y[],int length,char ch,int radius)
 			y[i]=y[i-1];
 		}
 		x[0]=x[0]+2*radius;
-	}
-	else if(ch=='w')
+	} 
+	else if(ch=='w') // Go up
 	{
 		for(int i=length-1;i>=1;i--)
 		{
@@ -36,7 +36,7 @@ void assignPosition(int x[],int y[],int length,char ch,int radius)
 		x[0]=x[1];
 		y[0]=y[0]-2*radius;
 	}
-	else if(ch=='x')
+	else if(ch=='x') //Go down
 	{
 		for(int i=length-1;i>=1;i--)
 		{
@@ -48,17 +48,17 @@ void assignPosition(int x[],int y[],int length,char ch,int radius)
 	}
 }
 
-void draw(int x[],int y[],int length,int radius)
+void draw(int x[],int y[],int length,int radius) //Draw all circles whose coordinates are specified in the array.
 {
 	for(int i=0;i<length;i++)
 	{
-		ellipse(x[i],y[i],0,360,radius,radius);
-  		setfillstyle(i,rand());
+		ellipse(x[i],y[i],0,360,radius,radius); 
+  		setfillstyle(i,rand()); //Used to set random fill style, which produces random patterns and colours.
   		fillellipse(x[i],y[i],radius,radius);
 	}
 }
 
-void egg(int x,int y)
+void egg(int x,int y) //Plot egg
 {
 	circle(x,y,5);
 }
@@ -98,7 +98,7 @@ void main()
 	while(ch!='p')
 	{
 		int temp2=checkVicinity(xegg,yegg,xPosition[0],yPosition[0],radius);
-		if(temp2==1)
+		if(temp2==1) //If near egg, increase length by 1
 		{
 			length=length+1;
 			if(ch=='a')
@@ -142,7 +142,7 @@ void main()
 		if(kbhit())
 		{
 			temp2=getch();
-			if(temp=='a' && temp2=='d')
+			if(temp=='a' && temp2=='d') // Can't move right when moving left  
 			{
 				ch=temp;
 			}
@@ -165,14 +165,14 @@ void main()
 			temp=ch;	
 		}
 		
-		cleardevice();
-		assignPosition(xPosition,yPosition,length,ch,radius);
-		if(xPosition[0]<0 || xPosition[0]>639 || yPosition[0]<0 || yPosition[0]>479)
+		cleardevice(); 
+		assignPosition(xPosition,yPosition,length,ch,radius);  //Assign centre of circles
+		if(xPosition[0]<0 || xPosition[0]>639 || yPosition[0]<0 || yPosition[0]>479) // End game if snake hits boundary
 		{
 			printf("Game Over!\n");
 			break;
 		}
-		draw(xPosition,yPosition,length,radius);
+		draw(xPosition,yPosition,length,radius); //plot circles
 	}
 	getch();
 	closegraph();
